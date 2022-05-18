@@ -5,10 +5,6 @@ inputs:
     description: 'Haxe version to setup'
     required: false
     default: '4.2.5'
-# outputs:
-  # out:
-    # description: ''
-    # value: ${{  }}
 runs:
   using: "composite"
   steps:
@@ -23,7 +19,6 @@ runs:
     - name: Upgrade brew
       if: runner.os == 'macOS'
       env:
-        # https://docs.brew.sh/Manpage#environment
         HOMEBREW_NO_ANALYTICS: 1
         HOMEBREW_NO_INSTALL_CLEANUP: 1
       run: |
@@ -32,22 +27,14 @@ runs:
         echo "::group::brew config" && brew config && echo "::endgroup::"
         echo "::group::brew install neko" && brew install neko && echo "::endgroup::"
 
-        # workaround to prevent "/usr/local/... is not inside a keg" during "brew install mono"
         rm /usr/local/bin/2to3
         rm /usr/local/share/man/man1/*
         rm /usr/local/share/man/man5/*
 
     - name: Set up Python 3
-      uses: actions/setup-python@v2 # https://github.com/actions/setup-python
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
-
-   - name: Configure Python 3
-     continue-on-error: true
-     if: runner.os == 'Windows'
-     shell: cmd
-     # workaround for https://github.com/actions/setup-python/issues/123
-     run: mklink "%pythonLocation%\python3.exe" "%pythonLocation%\python.exe"
 
     - name: Add msbuild to PATH
       if: startsWith(matrix.target, 'win')
@@ -71,13 +58,13 @@ runs:
           libuv1-dev \
           libvorbis-dev
         sudo apt-get install --no-install-recommends -y neko
-        neko || true # print neko version
+        neko || true
 
     - name: "Install: Required Dev Packages (MacOS)"
       if: runner.os == 'macOs'
       shell: bash
       run: |
-        neko || true # print neko version
+        neko || true
 
     - name: "Install: Required Dev Packages (Windows)"
       if: runner.os == 'Windows'
@@ -86,10 +73,10 @@ runs:
         choco install --no-progress neko -y
         nekopath=$(find C:/ProgramData/chocolatey/lib/neko -name neko.dll -printf '%h\n')
         echo "NEKOPATH=$nekopath" >> $GITHUB_ENV
-        neko || true # print neko version
+        neko || true
 
     - name: Install Haxe ${{ inputs.haxe }}
-      uses: krdlab/setup-haxe@v1 # https://github.com/krdlab/setup-haxe
+      uses: krdlab/setup-haxe@v1
       with:
         haxe-version: ${{ inputs.haxe }}
       
