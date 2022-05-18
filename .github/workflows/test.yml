@@ -22,8 +22,11 @@ jobs:
           - windows-latest
 
     steps:
+      - name: Clone repo
+        use: actions/checkout@v2
+
       - name: Setup
-        uses: ../../action.yml
+        uses: ./action.yml
 
       - name: Test haxe existance
         shell: bash
