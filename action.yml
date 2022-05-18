@@ -89,6 +89,9 @@ runs:
         haxelib install hashlink
         haxelib install redistHelper
 
+    - name: Git Checkout
+      uses: actions/checkout@v2
+
     - name: Setup Hashlink
       shell: bash
       run: |
@@ -117,7 +120,6 @@ runs:
         sudo cp -f ./*.so /lib/x86_64-linux-gnu/ || true
         sudo cp -f ./*.so /lib/ || true
         sudo cp -f ./*.so $(haxelib libpath redistHelper)/redistFiles/ || true
-        ls
         cd ..
 
     - name: Configure Hashlink (macOs)
@@ -129,5 +131,10 @@ runs:
     - name: Configure Hashlink (Windows)
       shell: bash
       if: runner.os == 'Windows'
+      run: |
+        cd ..
+
+    - name: Leave setup directory
+      shell: bash
       run: |
         cd ..
