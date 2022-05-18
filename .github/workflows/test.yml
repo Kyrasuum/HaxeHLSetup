@@ -10,7 +10,7 @@ on:
   pull_request:
 
 jobs:
-  build-cpp:
+  test:
     if: success()
     runs-on: ${{ matrix.os }}
     strategy:
@@ -24,6 +24,11 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
+
+      - name: testing
+        shell: bash
+        run: |
+          ls
 
       - name: Setup
         uses: ./action.yml
