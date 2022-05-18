@@ -31,7 +31,7 @@ jobs:
           ls
 
       - name: Setup
-        uses: ./action.yml
+        uses: ./
 
       - name: Test haxe existance
         shell: bash
