@@ -5,7 +5,7 @@ inputs:
     description: 'Haxe version to setup'
     required: false
     default: '4.2.5'
-outputs:
+# outputs:
   # out:
     # description: ''
     # value: ${{  }}
