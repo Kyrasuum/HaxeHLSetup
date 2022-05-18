@@ -8,13 +8,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-   - name: "Cache Haxelib Repository"
-     uses: actions/cache@v2
-     with:
-       path: $RUNNER_TOOL_CACHE/haxe/${{ inputs.haxe }}/x64/lib
-       key: ${{ runner.os }}-haxelib-${{ hashFiles('**/haxelib.json') }}
-       restore-keys: |
-         ${{ runner.os }}-haxelib-
+    - name: "Cache Haxelib Repository"
+      uses: actions/cache@v2
+      with:
+        path: $RUNNER_TOOL_CACHE/haxe/${{ inputs.haxe }}/x64/lib
+        key: ${{ runner.os }}-haxelib-${{ hashFiles('**/haxelib.json') }}
+        restore-keys: |
+          ${{ runner.os }}-haxelib-
 
     - name: Upgrade brew
       if: runner.os == 'macOS'
