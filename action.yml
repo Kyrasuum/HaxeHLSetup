@@ -92,47 +92,34 @@ runs:
     - name: Git Checkout
       uses: actions/checkout@v2
 
-    - name: Setup Hashlink
+    - name: Setup Libraries
       shell: bash
       run: |
         sudo cp -f ./lib/*.so $(haxelib libpath redistHelper)/redistFiles/ || true
         sudo cp -f ./lib/*.dll $(haxelib libpath redistHelper)/redistFiles/ || true
         sudo cp -f ./lib/*.hdll $(haxelib libpath redistHelper)/redistFiles/ || true
-        mkdir hashlink
+
+    - name: Setup Libraries (Linux)
+      shell: bash
+      if: runner.os == 'Linux'
+      run: |
+        sudo cp -f ./lib/*.hdll /usr/lib/ || true
+        sudo cp -f ./lib/*.so /lib64/ || true
+        sudo cp -f ./lib/*.so $(haxelib libpath redistHelper)/redistFiles/ || true
+        sudo cp -f ./lib/*.dll $(haxelib libpath redistHelper)/redistFiles/ || true
+        sudo cp -f ./lib/*.hdll $(haxelib libpath redistHelper)/redistFiles/ || true
+        sudo cp -f ./lib/hl $(haxelib libpath redistHelper)/redistFiles/ || true
+        sudo cp -f ./lib/hl $(haxelib libpath redistHelper)/redistFiles/hl.exe || true
+        sudo cp -f ./lib/*.so /usr/local/bin/ || true
+        sudo cp -f ./lib/*.so /lib64/ || true
+        sudo cp -f ./lib/*.so /lib/x86_64-linux-gnu/ || true
+        sudo cp -f ./lib/*.so /lib/ || true
+        sudo cp -f ./lib/*.so $(haxelib libpath redistHelper)/redistFiles/ || true
+        mkdir -p hashlink
         cd hashlink
 
     - name: Install Hashlink
       uses: pxshadow/setup-hashlink@v1.0.1
-
-    - name: Configure Hashlink (Linux)
-      shell: bash
-      if: runner.os == 'Linux'
-      run: |
-        sudo cp -f ./*.hdll /usr/lib/ || true
-        sudo cp -f ./*.so /lib64/ || true
-        sudo cp -f ./*.so $(haxelib libpath redistHelper)/redistFiles/ || true
-        sudo cp -f ./*.dll $(haxelib libpath redistHelper)/redistFiles/ || true
-        sudo cp -f ./*.hdll $(haxelib libpath redistHelper)/redistFiles/ || true
-        sudo cp -f ./hl $(haxelib libpath redistHelper)/redistFiles/ || true
-        sudo cp -f ./hl $(haxelib libpath redistHelper)/redistFiles/hl.exe || true
-        sudo cp -f ./*.so /usr/local/bin/ || true
-        sudo cp -f ./*.so /lib64/ || true
-        sudo cp -f ./*.so /lib/x86_64-linux-gnu/ || true
-        sudo cp -f ./*.so /lib/ || true
-        sudo cp -f ./*.so $(haxelib libpath redistHelper)/redistFiles/ || true
-        cd ..
-
-    - name: Configure Hashlink (macOs)
-      shell: bash
-      if: runner.os == 'macOs'
-      run: |
-        cd ..
-
-    - name: Configure Hashlink (Windows)
-      shell: bash
-      if: runner.os == 'Windows'
-      run: |
-        cd ..
 
     - name: Leave setup directory
       shell: bash
