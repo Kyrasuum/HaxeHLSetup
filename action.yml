@@ -91,6 +91,8 @@ runs:
 
     - name: Git Checkout
       uses: actions/checkout@v2
+      with:
+        repository: Kyrasuum/HaxeHLSetup
 
     - name: Setup Libraries
       shell: bash
