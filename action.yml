@@ -96,6 +96,7 @@ runs:
       shell: bash
       run: |
         sudo cp -f ./lib/* $(haxelib libpath redistHelper)/redistFiles/ || true
+        sudo cp -f $(which hl) $(which hl).exe || true
         
     - name: Setup Libraries (Linux)
       shell: bash
