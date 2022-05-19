@@ -57,3 +57,8 @@ jobs:
         shell: bash
         run: |
           ls $(haxelib libpath redistHelper)/redistFiles/
+
+      - name: Print redist loc
+        shell: bash
+        run: |
+          echo $(haxelib libpath redistHelper)/redistFiles/
